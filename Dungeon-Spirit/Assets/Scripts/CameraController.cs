@@ -62,14 +62,14 @@ public class CameraController : MonoBehaviour
 
     private void RotateCamera()
     {
-        if(!inputReader.UnlockRotation) return;
+        if (!inputReader.UnlockRotation) return;
         float rotationValue = inputReader.RotateValue.x;
         transform.rotation = Quaternion.Euler(0f, rotationValue * _rotationSpeed + transform.rotation.eulerAngles.y, 0f);
     }
 
     private void OnDisable()
     {
-        
+
     }
 
     private void Update()
@@ -77,6 +77,11 @@ public class CameraController : MonoBehaviour
         Debug.Log(targetPosition);
         RotateCamera();
         UpdateVelocity();
+
+    }
+
+    private void FixedUpdate()
+    {
         CalculateMovement();
     }
 
@@ -91,6 +96,7 @@ public class CameraController : MonoBehaviour
     {
         Vector3 right = cameraTransform.right;
         right.y = 0;
+        //Debug.Log("CAMERA RIGHT: " + right);
         return right;
     }
 
@@ -103,20 +109,26 @@ public class CameraController : MonoBehaviour
 
     private void CalculateMovement()
     {
-        targetPosition.x += inputReader.MovementValue.x * GetCameraRight().x;
-        targetPosition.z += inputReader.MovementValue.y * GetCameraForward().z;
+
+        targetPosition += inputReader.MovementValue.x * transform.right;
+        targetPosition += inputReader.MovementValue.y * transform.forward;
+        targetPosition = targetPosition.normalized;
+        //Debug.Log(targetPosition);
+
 
         if (targetPosition.sqrMagnitude > 0.1f)
-        {
+        {  
+            Debug.Log("are we accelerating?");
             // move towards it
             _panMoveSpeed = Mathf.Lerp(_panMoveSpeed, _panTopSpeed, Time.deltaTime * _panAcceleration);
-            transform.localPosition += targetPosition * _panMoveSpeed * Time.deltaTime;
+            transform.position += targetPosition * _panMoveSpeed * Time.deltaTime;
         }
         else
         {
+            Debug.Log("No lOnger accelerating");
             // ramp back down
             horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, Time.deltaTime * damping);
-            transform.localPosition += horizontalVelocity * Time.deltaTime;
+            transform.position += horizontalVelocity * Time.deltaTime;
         }
         targetPosition = Vector3.zero;
     }
