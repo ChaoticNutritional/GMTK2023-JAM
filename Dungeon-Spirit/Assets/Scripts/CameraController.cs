@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEditor.Events;
 
 
 public class CameraController : MonoBehaviour
 {
-
     private CameraControls camControls;
     private InputAction movement;
     public Transform cameraTransform;
@@ -57,24 +57,25 @@ public class CameraController : MonoBehaviour
     {
         lastPos = this.transform.position;
         movement = camControls.MyCam.Movement;
-        camControls.MyCam.RotateCamera.performed += RotateCamera;
         camControls.MyCam.Enable();
     }
 
-    private void RotateCamera(InputAction.CallbackContext context)
+    private void RotateCamera()
     {
-        throw new NotImplementedException();
+        if(!inputReader.UnlockRotation) return;
+        float rotationValue = inputReader.RotateValue.x;
+        transform.rotation = Quaternion.Euler(0f, rotationValue * _rotationSpeed + transform.rotation.eulerAngles.y, 0f);
     }
 
     private void OnDisable()
     {
-        camControls.MyCam.RotateCamera.performed -= RotateCamera;
+        
     }
 
     private void Update()
     {
         Debug.Log(targetPosition);
-
+        RotateCamera();
         UpdateVelocity();
         CalculateMovement();
     }
@@ -109,13 +110,13 @@ public class CameraController : MonoBehaviour
         {
             // move towards it
             _panMoveSpeed = Mathf.Lerp(_panMoveSpeed, _panTopSpeed, Time.deltaTime * _panAcceleration);
-            transform.position += targetPosition * _panMoveSpeed * Time.deltaTime;
+            transform.localPosition += targetPosition * _panMoveSpeed * Time.deltaTime;
         }
         else
         {
             // ramp back down
             horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, Time.deltaTime * damping);
-            transform.position += horizontalVelocity * Time.deltaTime;
+            transform.localPosition += horizontalVelocity * Time.deltaTime;
         }
         targetPosition = Vector3.zero;
     }

@@ -30,6 +30,7 @@ public class InputReader : MonoBehaviour, CameraControls.IMyCamActions
 
     public void OnRotateCamera(InputAction.CallbackContext context)
     {
+        if(!UnlockRotation) return;
         RotateValue = context.ReadValue<Vector2>();
     }
 
