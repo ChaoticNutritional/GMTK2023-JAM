@@ -47,13 +47,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 7412047908817916145}
   panMoveSpeed: 5
+  panTopSpeed: 15
   panAcceleration: 10
   damping: 10
   zoomSpeed: 2
   stepSize: 2
   zoomDamping: 3
-  minHeight: 5
-  maxHeight: 50
+  minHeight: 12
+  maxHeight: 40
   rotationTopSpeed: 0.85
   rotationSpeed: 0.12
   rotationAcceleration: 0.4
@@ -69,6 +70,7 @@ GameObject:
   - component: {fileID: 7412047908817916145}
   - component: {fileID: 7412047908817916150}
   - component: {fileID: 7412047908817916151}
+  - component: {fileID: 1775667448}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -84,7 +86,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7412047908817916148}
   m_LocalRotation: {x: 0.25679648, y: -0, z: -0, w: 0.96646553}
-  m_LocalPosition: {x: 0, y: 9.72, z: -11.88}
+  m_LocalPosition: {x: -2, y: 13.47, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -117,8 +119,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -142,3 +144,19 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7412047908817916148}
   m_Enabled: 1
+--- !u!114 &1775667448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7412047908817916148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
