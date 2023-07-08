@@ -495,7 +495,7 @@ GameObject:
   - component: {fileID: 1932597507}
   - component: {fileID: 1932597511}
   m_Layer: 0
-  m_Name: Hero
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -737,6 +737,18 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 6342435359589226401, guid: a8b107be679d97f4694a68407ad5f863, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -31.650513
+      objectReference: {fileID: 0}
+    - target: {fileID: 6342435360255760854, guid: a8b107be679d97f4694a68407ad5f863, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -55.399994
+      objectReference: {fileID: 0}
+    - target: {fileID: 6342435360280315124, guid: a8b107be679d97f4694a68407ad5f863, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10.509705
+      objectReference: {fileID: 0}
     - target: {fileID: 6342435360913579624, guid: a8b107be679d97f4694a68407ad5f863, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -744,6 +756,10 @@ PrefabInstance:
     - target: {fileID: 6342435360913579624, guid: a8b107be679d97f4694a68407ad5f863, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6342435360913579624, guid: a8b107be679d97f4694a68407ad5f863, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -4.9617996
       objectReference: {fileID: 0}
     - target: {fileID: 6342435360963832051, guid: a8b107be679d97f4694a68407ad5f863, type: 3}
       propertyPath: m_AnchorMax.x
