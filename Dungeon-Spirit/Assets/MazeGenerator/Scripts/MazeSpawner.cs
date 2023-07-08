@@ -21,6 +21,7 @@ public class MazeSpawner : MonoBehaviour
     public GameObject Floor = null;
     public GameObject Wall = null;
     public GameObject Pillar = null;
+    public GameObject Exit = null;
     public int Rows = 5;
     public int Columns = 5;
     public float CellWidth = 5;
@@ -59,6 +60,7 @@ public class MazeSpawner : MonoBehaviour
                 mMazeGenerator = new DivisionMazeGenerator(Rows, Columns);
                 break;
         }
+
         mMazeGenerator.GenerateMaze();
         for (int row = 0; row < Rows; row++)
         {
@@ -71,19 +73,20 @@ public class MazeSpawner : MonoBehaviour
 
                 if (row == Rows - 1 && !ExitPlaced)
                 {
-                    Debug.Log("CHANCE OF EXIT AT SPOT: " + (row + 1f) + "=" + (1f) + "/" + (ChancesInHat - column));
+                    //Debug.Log("CHANCE OF EXIT AT SPOT: " + (row + 1f) + "=" + (1f) + "/" + (ChancesInHat - column));
 
                     float yourRoll = Random.Range(0.01f, 1.0f);
 
-                // POTENTIALLY THE EXIT GOES HERE
-                    Debug.Log("You rolled: " + yourRoll);
-					Debug.Log("Percent to beat: " + (1f / (ChancesInHat - column)));
+                    // This is super hacky, fix post jam
+                    // POTENTIALLY THE EXIT GOES HERE
+                    //Debug.Log("You rolled: " + yourRoll);
+                    //Debug.Log("Percent to beat: " + (1f / (ChancesInHat - column)));
                     if (yourRoll <= (1f / (ChancesInHat - column)))
                     {
-                        GameObject temp = new GameObject("EXIT HERE");
-                        temp.transform.position = new Vector3(x, 0, z);
-                        temp.transform.parent = transform;
-						ExitPlaced = true;
+                        Debug.Log("PLACING EXIT AT: " + x + ", " + z);
+                        GameObject exitDoor = Instantiate(Exit, new Vector3(x, (Exit.transform.localScale.y) * .5f, z), Quaternion.identity) as GameObject;
+                        exitDoor.transform.parent = transform;
+                        ExitPlaced = true;
                     }
 
                 }
