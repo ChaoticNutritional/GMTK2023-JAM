@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine;
 
-public class AbilitySlot : MonoBehaviour, IMouseable
+public class AbilitySlot : MonoBehaviour
 {
+    public GameObject _tile;
+    public BaseAbility _ability;
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public AbilitySlot(GameObject tile, BaseAbility ability)
     {
-        
+        _tile = tile;
+        _ability = ability;
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void Spawn(GameObject _tile)
     {
-        
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        Debug.Log("Teehee");
+        _ability.Spawn(_tile);
     }
 }
+
+
