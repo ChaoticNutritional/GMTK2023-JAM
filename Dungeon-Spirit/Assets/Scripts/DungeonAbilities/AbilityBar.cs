@@ -4,17 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class AbilityBar : MonoBehaviour, IMouseable
+public class AbilityBar : MonoBehaviour
 {
-    [SerializeField] public BaseAbility _ability;
-
     [SerializeField] private AbilitySlot _abilitySlotPrefab;
 
-    [SerializeField] private int _abilityCount = 6;
+    public AbilitySlot[] _abilityArray = new AbilitySlot[6];
 
-    private GameObject barHolder;
+    public CameraController _cameraController;
 
-    private AbilitySlot[] _abilityArray;
+    protected GameObject myTile;
+
+    public void CreateBar(GameObject referencedTile)
+    {
+        Debug.Log("hello");
+        _cameraController.CancelEvent += OnCancel;
+
+        for(int i = 0; i < 6; i++)
+        {
+            _abilityArray[i]._tile = referencedTile;
+        }
+    }
+
 
     void OnDisable()
     {
@@ -23,36 +33,17 @@ public class AbilityBar : MonoBehaviour, IMouseable
 
     private void DestroyBar()
     {
-        Destroy(barHolder);
+        _cameraController.CancelEvent -= OnCancel;
+        this.enabled = false;
     }
 
-    public void CreateBar()
-    {
-        barHolder = new GameObject("barHolder");
-        // Preallocate slots array memory
-        _abilityArray = new AbilitySlot[_abilityCount];
 
-        for (int i = 0; i < +_abilityCount; i++)
-        {
-            AbilitySlot thisAbilitySlot = Instantiate(_abilitySlotPrefab, transform);
-            _abilityArray[i] = thisAbilitySlot;
-            thisAbilitySlot.transform.parent = barHolder.transform;
-        }
-        
-    }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    private void OnCancel()
     {
-        // raise ability
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        // lower ability back down
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        
+        DestroyBar();
     }
 }
+
+// button for each ability
+// when clicked, spawn at referenced tile

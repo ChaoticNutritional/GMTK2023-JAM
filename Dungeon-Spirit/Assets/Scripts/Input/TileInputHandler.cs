@@ -14,6 +14,8 @@ public class TileInputHandler : MonoBehaviour, IMouseable
 
     // reference the camera controller to check if isSelected is true;
 
+    
+
     // HOVER MATERIA
     public AbilityBar _abilityBar;
 
@@ -39,10 +41,16 @@ public class TileInputHandler : MonoBehaviour, IMouseable
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        _abilityBar.CreateBar();
+        // show ability bar
+        // show abilities
+
+        // call out to scene manager
+        _abilityBar.enabled = true;
+
+        _abilityBar.CreateBar(this.gameObject);
     }
 
-    
+
 }
 
 
