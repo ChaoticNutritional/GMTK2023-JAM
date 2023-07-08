@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MouseEntering : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class MouseEntering : MonoBehaviour, IMouseable
 {
     // Start is called before the first frame update
 
@@ -14,7 +14,7 @@ public class MouseEntering : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     // reference the camera controller to check if isSelected is true;
 
-    // HOVER MATERIAL
+    // HOVER MATERIA
 
     private Material myMat;
     private Color originalColor;
@@ -39,6 +39,16 @@ public class MouseEntering : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("Teehee");
+    }
+
+    public void MouseOver()
+    {
+        
+    }
+
+    public void MouseLeftClick()
+    {
+        
     }
 }
 
