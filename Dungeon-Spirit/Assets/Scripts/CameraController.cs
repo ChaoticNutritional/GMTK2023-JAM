@@ -101,7 +101,7 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
 
     public void OnSelect(InputAction.CallbackContext context)
     {
-
+        
     }
 
     public void OnCancel(InputAction.CallbackContext context)
