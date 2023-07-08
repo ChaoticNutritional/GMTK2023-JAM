@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AddMonster : MonoBehaviour
+public class AddMonster : BaseAbility
 {
     // Can be used as versatile ability holder for any Monster to add
 

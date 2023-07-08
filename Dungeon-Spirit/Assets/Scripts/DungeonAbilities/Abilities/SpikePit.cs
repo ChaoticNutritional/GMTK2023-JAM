@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Raise : MonoBehaviour
+public class SpikePit : BaseAbility
 {
     // Start is called before the first frame update
     void Start()

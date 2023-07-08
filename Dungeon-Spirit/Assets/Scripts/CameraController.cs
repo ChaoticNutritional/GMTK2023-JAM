@@ -203,9 +203,12 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
 }
 public interface IMouseable : IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
-    public void MouseOver();
     public void OnPointerEnter(PointerEventData eventData);
-    public void MouseLeftClick();
+
+    public void OnPointerExit(PointerEventData eventData);
+
+    public void OnPointerDown(PointerEventData eventData);
+
 }
 
 

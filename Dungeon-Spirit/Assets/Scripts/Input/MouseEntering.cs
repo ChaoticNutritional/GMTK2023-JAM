@@ -40,16 +40,6 @@ public class MouseEntering : MonoBehaviour, IMouseable
     {
         Debug.Log("Teehee");
     }
-
-    public void MouseOver()
-    {
-        
-    }
-
-    public void MouseLeftClick()
-    {
-        
-    }
 }
 
 
