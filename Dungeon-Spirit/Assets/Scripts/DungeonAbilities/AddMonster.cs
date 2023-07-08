@@ -10,10 +10,16 @@ public class AddMonster : MonoBehaviour
         // can be set in editor
 
     // When clicked from ability bar
-    // Temp selected
+    // Temp selected, follow cursor, only enable visualizer if:
         // if hovering over ground tile
         // if tile valid
-        // render preview of mesh with transparent version of material
+            // green
+            // render preview of mesh with transparent version of material
+
+        // 
+
+    // Cancel place
+        // if hit escape, 
     
     // When placed
         // instantiate REFERENCED monster on tile hovered over.

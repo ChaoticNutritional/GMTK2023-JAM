@@ -34,6 +34,11 @@ public class MazeSpawner : MonoBehaviour
 
     private BasicMazeGenerator mMazeGenerator = null;
 
+    // TODO
+    //1. KEEP TRACK OF DEAD ENDS
+    //2. After walls and floors have been generated, do another loop through those dead ends
+    //3. Remove a randm wall from those dead ends as long as that wall is internal and not a outer wall
+
     void Start()
     {
         ChancesInHat = Rows;
@@ -120,6 +125,7 @@ public class MazeSpawner : MonoBehaviour
                 }
             }
         }
+
         if (Pillar != null)
         {
             for (int row = 0; row < Rows + 1; row++)

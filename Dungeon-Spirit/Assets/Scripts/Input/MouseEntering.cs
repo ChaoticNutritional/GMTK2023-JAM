@@ -8,6 +8,8 @@ public class MouseEntering : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 {
     // Start is called before the first frame update
 
+    // reference the camera controller to check if isSelected is true;
+
     private Material myMat;
     private Color originalColor;
     private bool touched = false;

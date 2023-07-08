@@ -20,6 +20,8 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
 
     private CameraControls controls;
 
+    [SerializeField] public bool abilitySelected { get; private set; }
+
     // Variables for camera controls
     // panning motion
     [SerializeField] private float panMoveSpeed;
@@ -191,6 +193,10 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
             }
         }
     }
+
+    // TODO 
+    // Have we clicked an ability function?
+    // Handle ability selection
 }
 
 /*
