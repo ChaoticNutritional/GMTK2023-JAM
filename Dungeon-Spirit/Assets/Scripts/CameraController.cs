@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEditor.Events;
-using UnityEngine.EventSystems;
 
 
 public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
@@ -16,14 +15,15 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
     public Vector2 RotateValue { get; private set; }
     public float ZoomValue { get; private set; }
     public bool UnlockRotation { get; private set; }
+
     public GameObject target { get; private set; }
 
     private CameraControls controls;
 
     // Variables for camera controls
     // panning motion
-    [SerializeField] private float panMoveSpeed = 5f;
-    [SerializeField] private float panTopSpeed = 15f;
+    [SerializeField] private float panMoveSpeed;
+    [SerializeField] private float panTopSpeed = 5f;
     [SerializeField] private float panAcceleration = 10f;
     [SerializeField] private float damping = 10f;
 
@@ -161,7 +161,6 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
             // ramp back down
             horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, Time.deltaTime * damping);
             transform.position += horizontalVelocity * Time.deltaTime;
-            panMoveSpeed = 0f;
         }
         targetPosition = Vector3.zero;
     }
@@ -170,15 +169,6 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
     {
         Vector3 zoomTarget = new Vector3(cameraTransform.localPosition.x, zoomHeight, cameraTransform.localPosition.z);
         zoomTarget -= zoomSpeed * (zoomHeight - cameraTransform.localPosition.y) * Vector3.forward;
-
-        // TODO
-        // create a range between min and max heights
-        // minHeight, zoomHeight, clamp it to 0 to 100
-        // that is the percentage we want to change the pitch of the camera angle
-
-        // create a range between minPitch and maxPitch
-        // minPitch   maxPitch
-        // lerp the pitch value by an amount equal to the current percent we are away from the min point
 
         cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, zoomTarget, Time.deltaTime * zoomDamping);
         cameraTransform.LookAt(this.transform);
@@ -201,6 +191,41 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
             }
         }
     }
-
-    
 }
+
+/*
+    private void Update()
+    {
+        GetMoveInput();
+
+        UpdateVelocity();
+        UpdateBasePosition();
+    }
+
+
+    private void GetMoveInput()
+    {
+
+    }
+
+
+
+    private void UpdateBasePosition()
+    {
+        if (targetPosition.sqrMagnitude > .1f)
+        {
+            panMoveSpeed = Mathf.Lerp(panMoveSpeed, panTopSpeed, Time.deltaTime * panAcceleration);
+            Debug.Log("move speed = " + panMoveSpeed);
+            transform.position += targetPosition * panMoveSpeed * Time.deltaTime;
+        }
+        else
+        {
+            Debug.Log("We're not moving anymore");
+            horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, Time.deltaTime * damping);
+            transform.position += horizontalVelocity * Time.deltaTime;
+        }
+
+        targetPosition = Vector3.zero;
+    }
+
+*/
