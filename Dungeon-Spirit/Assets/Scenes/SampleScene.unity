@@ -307,7 +307,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-3608
+  m_Name: pb_Mesh-20710
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -524,7 +524,9 @@ MonoBehaviour:
   _rotationSpeed: 2
   _rotationAcceleration: 5
   _useScreenEdge: 1
-  inputReader: {fileID: 1541449205}
+  m_ZoomLevelDirection: 1
+  m_UseZoomLevels: 0
+  m_ZoomLevels: []
 --- !u!114 &1541449205
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class InputReader : MonoBehaviour, CameraControls.IMyCamActions
 {
     public Vector2 MovementValue { get; private set; }
     public Vector2 RotateValue { get; private set; }
+    public float ZoomValue { get; private set; }
     public bool UnlockRotation { get; private set; }
 
     public GameObject target { get; private set; }
@@ -30,13 +31,13 @@ public class InputReader : MonoBehaviour, CameraControls.IMyCamActions
 
     public void OnRotateCamera(InputAction.CallbackContext context)
     {
-        if(!UnlockRotation) return;
+        if (!UnlockRotation) return;
         RotateValue = context.ReadValue<Vector2>();
     }
 
     public void OnZoomCamera(InputAction.CallbackContext context)
     {
-
+        
     }
 
     public void OnSelect(InputAction.CallbackContext context)
