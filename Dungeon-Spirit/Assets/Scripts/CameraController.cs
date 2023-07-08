@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEditor.Events;
+using UnityEngine.EventSystems;
 
 
 public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
@@ -111,24 +112,6 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
         camControls.MyCam.Enable();
     }
 
-    private void ZoomCam(InputAction.CallbackContext context)
-    {
-        float value = -context.ReadValue<Vector2>().y / 100f;
-
-        if (Mathf.Abs(value) > 0.1f)
-        {
-            zoomHeight = cameraTransform.localPosition.y + value * stepSize;
-            if (zoomHeight < minHeight)
-            {
-                zoomHeight = minHeight;
-            }
-            else if (zoomHeight > maxHeight)
-            {
-                zoomHeight = maxHeight;
-            }
-        }
-    }
-
     private void Update()
     {
         CalculateMovement();
@@ -188,6 +171,15 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
         Vector3 zoomTarget = new Vector3(cameraTransform.localPosition.x, zoomHeight, cameraTransform.localPosition.z);
         zoomTarget -= zoomSpeed * (zoomHeight - cameraTransform.localPosition.y) * Vector3.forward;
 
+        // TODO
+        // create a range between min and max heights
+        // minHeight, zoomHeight, clamp it to 0 to 100
+        // that is the percentage we want to change the pitch of the camera angle
+
+        // create a range between minPitch and maxPitch
+        // minPitch   maxPitch
+        // lerp the pitch value by an amount equal to the current percent we are away from the min point
+
         cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, zoomTarget, Time.deltaTime * zoomDamping);
         cameraTransform.LookAt(this.transform);
     }
@@ -209,4 +201,6 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
             }
         }
     }
+
+    
 }
