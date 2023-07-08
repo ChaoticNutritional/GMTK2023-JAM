@@ -15,15 +15,14 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
     public Vector2 RotateValue { get; private set; }
     public float ZoomValue { get; private set; }
     public bool UnlockRotation { get; private set; }
-
     public GameObject target { get; private set; }
 
     private CameraControls controls;
 
     // Variables for camera controls
     // panning motion
-    [SerializeField] private float panMoveSpeed;
-    [SerializeField] private static float panTopSpeed = 5f;
+    [SerializeField] private float panMoveSpeed = 5f;
+    [SerializeField] private float panTopSpeed = 15f;
     [SerializeField] private float panAcceleration = 10f;
     [SerializeField] private float damping = 10f;
 
@@ -179,6 +178,7 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
             // ramp back down
             horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, Time.deltaTime * damping);
             transform.position += horizontalVelocity * Time.deltaTime;
+            panMoveSpeed = 0f;
         }
         targetPosition = Vector3.zero;
     }

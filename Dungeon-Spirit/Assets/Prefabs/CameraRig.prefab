@@ -46,17 +46,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 7412047908817916145}
-  panMoveSpeed: 2
+  panMoveSpeed: 5
   panAcceleration: 10
   damping: 10
   zoomSpeed: 2
-  stepSize: 1
+  stepSize: 2
   zoomDamping: 3
   minHeight: 5
   maxHeight: 50
-  rotationTopSpeed: 1
-  rotationSpeed: 1
-  rotationAcceleration: 2.3
+  rotationTopSpeed: 0.85
+  rotationSpeed: 0.12
+  rotationAcceleration: 0.4
   useScreenEdge: 1
 --- !u!1 &7412047908817916148
 GameObject:
