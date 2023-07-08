@@ -10,6 +10,12 @@ public class MouseEntering : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     // reference the camera controller to check if isSelected is true;
 
+        // Start is called before the first frame update
+
+    // reference the camera controller to check if isSelected is true;
+
+    // HOVER MATERIAL
+
     private Material myMat;
     private Color originalColor;
     private bool touched = false;
@@ -35,3 +41,6 @@ public class MouseEntering : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         Debug.Log("Teehee");
     }
 }
+
+
+

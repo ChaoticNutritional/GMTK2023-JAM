@@ -8,6 +8,7 @@ using UnityEditor.Events;
 
 public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
 {
+    private IMouseable _mouseable = null;
     private CameraControls camControls;
     private InputAction movement;
     public Transform cameraTransform;
@@ -81,7 +82,7 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
 
     public void OnSelect(InputAction.CallbackContext context)
     {
-        
+
     }
 
     public void OnCancel(InputAction.CallbackContext context)
@@ -198,6 +199,13 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
     // Have we clicked an ability function?
     // Handle ability selection
 }
+public interface IMouseable
+{
+    public void MouseOver();
+    public void MouseLeftClick();
+}
+
+
 
 /*
     private void Update()

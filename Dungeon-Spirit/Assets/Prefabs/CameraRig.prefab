@@ -47,12 +47,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 7412047908817916145}
   panMoveSpeed: 5
+  panTopSpeed: 15
   panAcceleration: 10
   damping: 10
   zoomSpeed: 2
   stepSize: 2
   zoomDamping: 3
-  minHeight: 5
+  minHeight: 10
   maxHeight: 50
   rotationTopSpeed: 0.85
   rotationSpeed: 0.12
