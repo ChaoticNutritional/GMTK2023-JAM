@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEditor.Events;
 
@@ -164,6 +165,7 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
             // ramp back down
             horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, Time.deltaTime * damping);
             transform.position += horizontalVelocity * Time.deltaTime;
+            panMoveSpeed = 0f;
         }
         targetPosition = Vector3.zero;
     }
@@ -199,9 +201,10 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
     // Have we clicked an ability function?
     // Handle ability selection
 }
-public interface IMouseable
+public interface IMouseable : IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     public void MouseOver();
+    public void OnPointerEnter(PointerEventData eventData);
     public void MouseLeftClick();
 }
 
