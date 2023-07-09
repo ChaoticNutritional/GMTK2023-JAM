@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class DS_SpiritController : MonoBehaviour
 {
+    [Tooltip ("Contains prefabs to instantiate. Floor, Raised, Pit, Enemy, Spike, Fountain")]
+    public GameObject[] prefabs = new GameObject[6];
 
+    public int AP;
 
     // Start is called before the first frame update
     void Start()
     {
         DS_SceneManager.instance.spiritController = this;
+        AP = 20;
     }
 
     // Update is called once per frame
@@ -20,28 +24,78 @@ public class DS_SpiritController : MonoBehaviour
 
     public void RaiseTile()
     {
-        if(DS_SceneManager.instance.activeTile != null)
+        if (DS_SceneManager.instance.activeTile != null && AP > 0)
         {
+            TileInputHandler tile = DS_SceneManager.instance.activeTile;
 
-            // If the tile is lowered, raise it to level. If level, set to raised. If raised, do nothing. 
-            Debug.Log("Raise active tile");
+            if (tile.tileState == TileInputHandler.TileState.pit)
+            {
+                GameObject newTileGO = Instantiate(prefabs[0], tile.transform.parent.transform.position, tile.transform.parent.gameObject.transform.rotation);
+                TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
+                newTile.ReplaceSelection();
+                AP--;
+                Debug.Log("Raise active tile");
+            }
+            else if (tile.tileState == TileInputHandler.TileState.floor)
+            {
+                GameObject newTileGO = Instantiate(prefabs[1], tile.transform.parent.gameObject.transform.position, tile.transform.parent.gameObject.transform.rotation);
+                TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
+                newTile.ReplaceSelection();
+                AP--;
+                Debug.Log("Raise active tile");
+            }
+            // If the tile is lowered, raise it to level. If level, set to raised. If raised, do nothing.
         }
     }
 
     public void LowerTile()
     {
-        if (DS_SceneManager.instance.activeTile != null)
+        if (DS_SceneManager.instance.activeTile != null && AP > 0)
         {
-            // if the tile is raised, set it to level. If it is level, set it to lowered. If lowered, do nothing. 
-            Debug.Log("Lower active tile");
+            TileInputHandler tile = DS_SceneManager.instance.activeTile;
+
+            if (tile.tileState == TileInputHandler.TileState.floor)
+            {
+                GameObject newTileGO = Instantiate(prefabs[2], tile.transform.parent.gameObject.transform.position, tile.transform.parent.gameObject.transform.rotation);
+                TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
+                newTile.ReplaceSelection();
+                AP--;
+                Debug.Log("Lower active tile");
+            }
+            else if (tile.tileState == TileInputHandler.TileState.raised)
+            {
+                GameObject newTileGO = Instantiate(prefabs[0], tile.transform.parent.transform.position, tile.transform.parent.gameObject.transform.rotation);
+                TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
+                newTile.ReplaceSelection();
+                AP--;
+                Debug.Log("Lower active tile");
+            }
         }
     }
 
     public void SpawnSlime()
     {
-        if (DS_SceneManager.instance.activeTile != null)
+        if (DS_SceneManager.instance.activeTile != null && AP > 0)
         {
-            Debug.Log("Spawn slime");
+            TileInputHandler tile = DS_SceneManager.instance.activeTile;
+            if (tile.tileState == TileInputHandler.TileState.floor)
+            {
+                GameObject newTileGO = Instantiate(prefabs[3], tile.transform.parent.gameObject.transform.position, tile.transform.parent.gameObject.transform.rotation);
+                TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
+                newTile.ReplaceSelection();
+                newTile.AddSlime();
+                AP--;
+                Debug.Log("Spawn Slime");
+            }
+            else if (tile.tileState == TileInputHandler.TileState.enemy)
+            {
+                if(tile.numberOfEnemies < 3)
+                {
+                    tile.AddSlime();
+                    AP--;
+                    Debug.Log("Spawn Slime");
+                }
+            }
             // if the tile is level and contains 0 monsters, make it a Monster tile and add a Slime. If it does
             // contain monsters, but less than three, access Monster tile and add one Slime. Otherwise, do nothing.
         }
@@ -49,31 +103,60 @@ public class DS_SpiritController : MonoBehaviour
 
     public void SpawnGhoul()
     {
-        if (DS_SceneManager.instance.activeTile != null)
+        if (DS_SceneManager.instance.activeTile != null && AP >= 3)
         {
-            Debug.Log("Spawn ghoul");
-            // if the tile is level and contains 0 monsters, make it a Monster tile and add a Ghoul. If it does
-            // contain monsters, but less than three, access Monster tile and add one Ghoul. Otherwise, do nothing
+            TileInputHandler tile = DS_SceneManager.instance.activeTile;
+            if (tile.tileState == TileInputHandler.TileState.floor)
+            {
+                GameObject newTileGO = Instantiate(prefabs[3], tile.transform.parent.gameObject.transform.position, tile.transform.parent.gameObject.transform.rotation);
+                TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
+                newTile.ReplaceSelection();
+                newTile.AddGhoul();
+                AP -= 3;
+                Debug.Log("Spawn Ghoul");
+            }
+            else if (tile.tileState == TileInputHandler.TileState.enemy)
+            {
+                if (tile.numberOfEnemies < 3)
+                {
+                    tile.AddSlime();
+                    AP -= 3;
+                    Debug.Log("Spawn Slime");
+                }
+            }
+            // if the tile is level and contains 0 monsters, make it a Monster tile and add a Slime. If it does
+            // contain monsters, but less than three, access Monster tile and add one Slime. Otherwise, do nothing.
         }
     }
 
     public void SpikePit()
     {
-        if (DS_SceneManager.instance.activeTile != null)
+        TileInputHandler tile = DS_SceneManager.instance.activeTile;
+        if (tile.tileState == TileInputHandler.TileState.floor && AP >= 2)
         {
-            Debug.Log("Add spikes to pit, lowering terrain to pit");
-            // If the tile is raised, do nothing. If the tile is level, lower and add spikes. If the tile is lowered,
-            // add spikes for 1 less AP.
+            GameObject newTileGO = Instantiate(prefabs[4], tile.transform.parent.gameObject.transform.position, tile.transform.parent.gameObject.transform.rotation);
+            TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
+            newTile.ReplaceSelection();
+            AP -= 2;
+        }
+        else if (tile.tileState == TileInputHandler.TileState.pit && AP >= 1)
+        {
+            GameObject newTileGO = Instantiate(prefabs[4], tile.transform.parent.gameObject.transform.position, tile.transform.parent.gameObject.transform.rotation);
+            TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
+            newTile.ReplaceSelection();
+            AP--;
         }
     }
 
     public void HealingFountain()
     {
-        if (DS_SceneManager.instance.activeTile != null)
+        TileInputHandler tile = DS_SceneManager.instance.activeTile;
+        if (tile.tileState == TileInputHandler.TileState.floor && AP >= 2)
         {
-            Debug.Log("Add healing fountain");
-            // If the tile is raised, do nothing. If the tile is level, add a healing fountain. If the tile is lowered,
-            // do nothing.
+            GameObject newTileGO = Instantiate(prefabs[5], tile.transform.parent.gameObject.transform.position, tile.transform.parent.gameObject.transform.rotation);
+            TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
+            newTile.ReplaceSelection();
+            AP -= 2;
         }
     }
 }
