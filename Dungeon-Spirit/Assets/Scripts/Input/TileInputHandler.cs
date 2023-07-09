@@ -22,7 +22,7 @@ public class TileInputHandler : MonoBehaviour, IMouseable
     private bool selected;
     public AbilityBar _abilityBar;
     public TileState tileState;
-    public bool heroHasSteppedOn;
+    public int heroHasSteppedOn;
     public int numberOfEnemies;
     public List<GameObject> enemies = new List<GameObject>();
 
@@ -54,7 +54,10 @@ public class TileInputHandler : MonoBehaviour, IMouseable
     {
         if (selected == false)
         {
-            myMat.color = Color.green;
+            if (heroHasSteppedOn > 0)
+                myMat.color = Color.red;
+            else
+                myMat.color = Color.green;
         }
     }
 
@@ -91,13 +94,16 @@ public class TileInputHandler : MonoBehaviour, IMouseable
 
     public void EnableSelection()
     {
-        selected = true;
-        if(DS_SceneManager.instance.activeTile != null)
+        if (heroHasSteppedOn == 0)
         {
-            DS_SceneManager.instance.activeTile.GetComponent<TileInputHandler>().DisableSelection();
+            selected = true;
+            if (DS_SceneManager.instance.activeTile != null)
+            {
+                DS_SceneManager.instance.activeTile.GetComponent<TileInputHandler>().DisableSelection();
+            }
+            DS_SceneManager.instance.activeTile = this;
+            myMat.color = Color.cyan;
         }
-        DS_SceneManager.instance.activeTile = this;
-        myMat.color = Color.cyan;
     }
 
     public void ReplaceSelection()
@@ -138,6 +144,13 @@ public class TileInputHandler : MonoBehaviour, IMouseable
             print("Ghoul Added " + ghoul.name);
             numberOfEnemies++;
         }
+    }
+    public void HeroSteppedOn()
+    {
+        if (selected)
+            DisableSelection();
+        myMat.color = originalColor;
+        heroHasSteppedOn++;
     }
 }
 

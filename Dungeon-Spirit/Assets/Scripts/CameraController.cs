@@ -63,6 +63,7 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
 
     private void Start()
     {
+        DS_SceneManager.instance.cameraObject = this;
         // At start, create new controls object 🔫
         controls = new CameraControls();
 

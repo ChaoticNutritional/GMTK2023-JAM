@@ -1090,9 +1090,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bfce750163f241608c136bfacc75d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnLocations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  slimePrefab: {fileID: 0}
+  ghoulPrefab: {fileID: 0}
   _abilityBar: {fileID: 0}
   tileState: 1
   heroHasSteppedOn: 0
+  numberOfEnemies: 0
+  enemies: []
 --- !u!1 &7973723291466051328
 GameObject:
   m_ObjectHideFlags: 0

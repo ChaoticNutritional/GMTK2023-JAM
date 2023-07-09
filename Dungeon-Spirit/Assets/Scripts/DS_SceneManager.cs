@@ -6,7 +6,7 @@ public class DS_SceneManager : MonoBehaviour
 {
     public static DS_SceneManager instance;
 
-    public GameObject hero;
+    public HeroBehavior hero;
     public CameraController cameraObject;
     public TileInputHandler activeTile;
     public InventoryHouseScript inventoryHouse;

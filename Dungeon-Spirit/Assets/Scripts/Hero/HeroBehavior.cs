@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class HeroBehavior : MonoBehaviour
 {
+    // Script Reference Variables
+    public DS_HeroMovement heroMove;
+    public Animator anim;
+    private Vector3 originalPosition;
+    public TileInputHandler tile;
 
     // BASE HERO VALUES
     public float _maxHP = 40f;
@@ -15,6 +20,7 @@ public class HeroBehavior : MonoBehaviour
     public Vector2 _bonusDmg = new Vector2(0f, 3f); // on turn set this to Range(0,3);
     public float _healBonus = 0f;
     public int _actionPoints = 4;
+    public int _currentAP = 0;
     public float _exp = 0;
     public int _currentLvl = 1;
     public float _expToLevel;
@@ -41,13 +47,24 @@ public class HeroBehavior : MonoBehaviour
 
     void Start()
     {
+        DS_SceneManager.instance.hero = this;
+        anim = transform.GetChild(0).GetComponent<Animator>();
+        heroMove = GetComponent<DS_HeroMovement>();
         _currentHP = _maxHP;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (DS_SceneManager.instance.spiritTurn == false && _currentAP != 0)
+        {
 
+        }
+    }
+
+    public void ProcessStartOfTurn()
+    {
+        _currentAP = _actionPoints;
     }
 
     public void OnGainXP(float expGained)
@@ -135,7 +152,25 @@ public class HeroBehavior : MonoBehaviour
 
     public void Move()
     {
+        //heroMove.CheckMovementDirection();
+        StartCoroutine("LerpToPosition", heroMove.CheckMovementDirection());
         //A* hooboy
+    }
+
+    public IEnumerable LerpToPosition(Vector3 dest)
+    {
+        float i = 0;
+        originalPosition = transform.position;
+        transform.forward = new Vector3((dest - transform.position).x, 0, (dest - transform.position).z);
+        anim.Play("1H@Run01 - Forward");
+        while (i < 1f)
+        {
+            transform.position = Vector3.Lerp(originalPosition, dest, i);
+            yield return null;
+        }
+        anim.Play("Item-Idle");
+
+        yield break;
     }
 
     private DynamicLvlBonus RollRandom()
