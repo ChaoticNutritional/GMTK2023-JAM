@@ -15,7 +15,7 @@ public class AbilityBar : MonoBehaviour
         CreateBar();
     }
 
-    private void CreateBar()
+    public void CreateBar()
     {
         // Preallocate slots array memory
         _abilityArray = new AbilitySlot[_abilityCount];

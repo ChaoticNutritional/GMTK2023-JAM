@@ -1,16 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.InputSystem;
+
+
 
 public class InputReader : MonoBehaviour, CameraControls.IMyCamActions
 {
+    public event Action CancelEvent;
+
     public Vector2 MovementValue { get; private set; }
     public Vector2 RotateValue { get; private set; }
     public float ZoomValue { get; private set; }
     public bool UnlockRotation { get; private set; }
 
     public GameObject target { get; private set; }
+
+
+
+
 
     private CameraControls controls;
     private void Start()
@@ -37,16 +46,17 @@ public class InputReader : MonoBehaviour, CameraControls.IMyCamActions
 
     public void OnZoomCamera(InputAction.CallbackContext context)
     {
-        
+        if (!context.performed) { return; }
     }
 
     public void OnSelect(InputAction.CallbackContext context)
     {
-
+        if (!context.performed) { return; }
     }
 
     public void OnCancel(InputAction.CallbackContext context)
     {
+        if (!context.performed) { return; }
     }
 
     public void OnEnableRotion(InputAction.CallbackContext context)
