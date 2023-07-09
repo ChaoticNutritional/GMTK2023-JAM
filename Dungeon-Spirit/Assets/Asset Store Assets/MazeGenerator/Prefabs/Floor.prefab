@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3306110}
   - component: {fileID: 6570506}
   - component: {fileID: 2383896}
-  - component: {fileID: 4345460260873721962}
+  - component: {fileID: 2202428159221530723}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Floor
@@ -98,7 +98,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4345460260873721962
+--- !u!114 &2202428159221530723
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,6 +107,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 165842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 359d5a4241f8548508ad89874855cd1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5bfce750163f241608c136bfacc75d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _abilityBar: {fileID: 0}

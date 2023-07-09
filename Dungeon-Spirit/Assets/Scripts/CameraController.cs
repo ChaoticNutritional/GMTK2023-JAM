@@ -104,6 +104,15 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
 
     public void OnCancel(InputAction.CallbackContext context)
     {
+        if(DS_SceneManager.instance.inventoryHouse.gameObject.activeInHierarchy)
+        {
+            DS_SceneManager.instance.inventoryHouse.GetComponent<InventoryHouseScript>().CloseMenu();
+            DS_SceneManager.instance.activeTile.GetComponent<TileInputHandler>().DisableSelection();
+        }
+        else
+        {
+            DS_SceneManager.instance.pauseScreenMenu.TogglePauseScreen();
+        }
         if (!context.performed) { return; }
     }
 
