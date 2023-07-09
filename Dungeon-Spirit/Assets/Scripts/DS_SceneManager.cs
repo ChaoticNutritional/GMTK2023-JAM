@@ -11,6 +11,7 @@ public class DS_SceneManager : MonoBehaviour
     public TileInputHandler activeTile;
     public InventoryHouseScript inventoryHouse;
     public PauseScreenMenu pauseScreenMenu;
+    public DS_SpiritController spiritController;
 
 
 
