@@ -10,14 +10,14 @@ public class TileInputHandler : MonoBehaviour, IMouseable
 
     // reference the camera controller to check if isSelected is true;
 
-        // Start is called before the first frame update
+    // Start is called before the first frame update
 
     // reference the camera controller to check if isSelected is true;
 
     // HOVER MATERIA
     public AbilityBar _abilityBar;
 <<<<<<< Updated upstream
-=======
+
     public TileState tileState;
     public float tileDesire;
     public bool heroHasSteppedOn;
@@ -30,8 +30,8 @@ public class TileInputHandler : MonoBehaviour, IMouseable
     private bool touched = false;
 
 <<<<<<< Updated upstream
-=======
-    public GameObject exitDoor; 
+
+    public GameObject exitDoor;
 
     public enum TileState
     {
@@ -89,7 +89,7 @@ public class TileInputHandler : MonoBehaviour, IMouseable
 >>>>>>> Stashed changes
     }
 
-    
+
 }
 
 
