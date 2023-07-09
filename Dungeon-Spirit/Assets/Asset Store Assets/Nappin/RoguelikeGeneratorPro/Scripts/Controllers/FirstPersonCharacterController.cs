@@ -32,7 +32,6 @@ namespace RoguelikeGeneratorPro
             if (controller.isGrounded)
             {
                 Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-                if (input.x != 0 && input.y != 0) input *= 0.777f;
 
                 moveDirection = new Vector3(input.x * speed, -antiBump, input.y * speed);
                 moveDirection = transform.TransformDirection(moveDirection);
