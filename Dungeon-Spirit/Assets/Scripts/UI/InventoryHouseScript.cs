@@ -15,7 +15,6 @@ public class InventoryHouseScript : MonoBehaviour
     void Start()
     {
         DS_SceneManager.instance.inventoryHouse = this;
-        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
