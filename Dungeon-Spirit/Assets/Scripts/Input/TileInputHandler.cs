@@ -16,6 +16,7 @@ public class TileInputHandler : MonoBehaviour, IMouseable
 
     // HOVER MATERIA
     public AbilityBar _abilityBar;
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 
     public TileState tileState;
@@ -24,11 +25,14 @@ public class TileInputHandler : MonoBehaviour, IMouseable
     public int numberOfEnemies;
     public List<GameObject> enemies = new List<GameObject>();
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of 8a907f2a (Added Collision Tester Children to hero and added additional behavior and movement functionality)
 
     private Material myMat;
     private Color originalColor;
     private bool touched = false;
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 
     public GameObject exitDoor;
@@ -45,10 +49,10 @@ public class TileInputHandler : MonoBehaviour, IMouseable
     }
 
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of 8a907f2a (Added Collision Tester Children to hero and added additional behavior and movement functionality)
     void Awake()
     {
-        exitDoor = GameObject.Find("DS_ExitHatch");
-        tileDesire += 10 * Mathf.Clamp01(Vector3.Distance(this.transform.position, exitDoor.transform.position));
         myMat = this.GetComponent<MeshRenderer>().material;
         originalColor = myMat.color;
     }
@@ -65,28 +69,7 @@ public class TileInputHandler : MonoBehaviour, IMouseable
 
     public void OnPointerDown(PointerEventData eventData)
     {
-<<<<<<< Updated upstream
         _abilityBar.CreateBar();
-=======
-        // show ability bar
-        // show abilities
-
-        // call out to scene manager with reference to self
-
-        // have scene manager to subscribe 
-        //_abilityBar.enabled = true;
-
-        //_abilityBar.CreateBar(this.gameObject);
-        if(selected)
-        {
-            DisableSelection();
-            myMat.color = Color.green;
-        }
-        else
-        {
-            EnableSelection();
-        }
->>>>>>> Stashed changes
     }
 
 

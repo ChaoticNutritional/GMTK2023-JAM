@@ -14,21 +14,5 @@ public class HeroBehavior : MonoBehaviour
     void Update()
     {
         
-<<<<<<< Updated upstream
-=======
-        // if (have more action points)
-        // keep moving
-    }
-
-    public void Move()
-    {
-        // if has action move in direction of available direction
-        
-    }
-
-    private DynamicLvlBonus RollRandom()
-    {
-        return (DynamicLvlBonus)Random.Range(0, 5);
->>>>>>> Stashed changes
     }
 }
