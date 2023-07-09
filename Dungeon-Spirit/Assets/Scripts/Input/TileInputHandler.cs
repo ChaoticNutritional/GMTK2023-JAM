@@ -15,9 +15,16 @@ public class TileInputHandler : MonoBehaviour, IMouseable
     // reference the camera controller to check if isSelected is true;
 
 
+    public GameObject[] spawnLocations = new GameObject[3];
+    public GameObject slimePrefab;
+    public GameObject ghoulPrefab;
 
     private bool selected;
     public AbilityBar _abilityBar;
+    public TileState tileState;
+    public bool heroHasSteppedOn;
+    public int numberOfEnemies;
+    public List<GameObject> enemies = new List<GameObject>();
 
     // HOVER MATERIAL
     private Material myMat;
@@ -40,6 +47,7 @@ public class TileInputHandler : MonoBehaviour, IMouseable
         myMat = this.GetComponent<MeshRenderer>().material;
         originalColor = myMat.color;
         selected = false;
+        numberOfEnemies = 0;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -92,11 +100,44 @@ public class TileInputHandler : MonoBehaviour, IMouseable
         myMat.color = Color.cyan;
     }
 
+    public void ReplaceSelection()
+    {
+        selected = true;
+        if (DS_SceneManager.instance.activeTile != null)
+        {
+            Destroy(DS_SceneManager.instance.activeTile.transform.parent.gameObject);
+        }
+        DS_SceneManager.instance.activeTile = this;
+        myMat.color = Color.cyan;
+    }
+
     public void DisableSelection()
     {
         selected = false;
         DS_SceneManager.instance.activeTile = null;
         myMat.color = originalColor;
+    }
+
+    public void AddSlime()
+    {
+        if (tileState == TileState.enemy && numberOfEnemies < 3)
+        {
+            Instantiate(slimePrefab, spawnLocations[numberOfEnemies].transform.position, spawnLocations[numberOfEnemies].transform.rotation);
+            numberOfEnemies++;
+        }
+    }
+
+    public void AddGhoul()
+    {
+        print("AddGhoulCalled");
+        if (tileState == TileState.enemy && numberOfEnemies < 3)
+        {
+            print("Adding Ghoul");
+            GameObject ghoul = Instantiate(ghoulPrefab, spawnLocations[numberOfEnemies].transform.position, spawnLocations[numberOfEnemies].transform.rotation);
+            enemies.Add(ghoul);
+            print("Ghoul Added " + ghoul.name);
+            numberOfEnemies++;
+        }
     }
 }
 
