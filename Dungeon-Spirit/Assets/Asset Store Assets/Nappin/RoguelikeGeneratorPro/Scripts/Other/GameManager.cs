@@ -8,7 +8,7 @@ namespace RoguelikeGeneratorPro
     {
         [Header("Generate player")]
         public bool placePlayer = false;
-        public float playerHeightOffset = 0f;
+        public float playerHeightOffset = 1f;
         public GameObject playerObj;
 
         [Header("Generate target")]
