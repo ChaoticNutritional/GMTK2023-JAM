@@ -43,4 +43,9 @@ public class PauseScreenMenu : MonoBehaviour {
     {
 
     }    
+
+    public void QuitToDesktop()
+    {
+            Application.Quit();
+    }
 }
