@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseScreenMenu : MonoBehaviour {
     
@@ -11,10 +12,16 @@ public class PauseScreenMenu : MonoBehaviour {
     {   
         if (pauseScreenMenu == null)
             pauseScreenMenu = gameObject;
+        
+    }
+
+
+    private void Start()
+    {
+        DS_SceneManager.instance.pauseScreenMenu = this;
         TogglePauseScreen();
     }
 
- 
     public void TogglePauseScreen()
     {
         pauseScreenMenu.SetActive(!pauseScreenMenu.activeInHierarchy);
@@ -29,12 +36,19 @@ public class PauseScreenMenu : MonoBehaviour {
     }
 
     public void RestartRoom()
-    { 
-    
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
     }
 
     public void QuitToMainMenu()
     {
-
+        SceneManager.LoadScene(0);
     }    
+
+    public void QuitToDesktop()
+    {
+            Application.Quit();
+        
+    }
 }

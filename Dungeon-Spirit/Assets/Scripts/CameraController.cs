@@ -10,15 +10,18 @@ using UnityEditor.Events;
 public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
 {
     private IMouseable _mouseable = null;
-    private CameraControls camControls;
+    [SerializeField] public CameraControls camControls { get; private set; }
     private InputAction movement;
     public Transform cameraTransform;
+    public event Action CancelEvent;
     public Vector2 MovementValue { get; private set; }
     public Vector2 RotateValue { get; private set; }
     public float ZoomValue { get; private set; }
     public bool UnlockRotation { get; private set; }
 
-    public GameObject target { get; private set; }
+    // tile when hovered
+    public GameObject tileTarget { get; private set; }
+    public GameObject abilitySlotTarget { get; private set; }
 
     private CameraControls controls;
 
@@ -60,6 +63,7 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
 
     private void Start()
     {
+        DS_SceneManager.instance.cameraObject = this;
         // At start, create new controls object 🔫
         controls = new CameraControls();
 
@@ -67,6 +71,19 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
         controls.MyCam.SetCallbacks(this);
 
         controls.MyCam.Enable();
+    }
+
+    public void SetTarget(GameObject target)
+    {
+        if (target.CompareTag("GroundTile"))
+        {
+            tileTarget = target;
+        }
+        else if (target.CompareTag("AbilitySlot"))
+        {
+            abilitySlotTarget = target;
+            abilitySelected = true;
+        }
     }
 
     public void OnMovement(InputAction.CallbackContext context)
@@ -83,11 +100,24 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
 
     public void OnSelect(InputAction.CallbackContext context)
     {
-
+        if (!context.performed) { return; }
     }
 
     public void OnCancel(InputAction.CallbackContext context)
     {
+        if (context.performed)
+        {
+            if (DS_SceneManager.instance.inventoryHouse.gameObject.activeInHierarchy)
+            {
+                DS_SceneManager.instance.inventoryHouse.GetComponent<InventoryHouseScript>().CloseMenu();
+                DS_SceneManager.instance.activeTile.GetComponent<TileInputHandler>().DisableSelection();
+            }
+            else
+            {
+                DS_SceneManager.instance.pauseScreenMenu.TogglePauseScreen();
+            }
+        }
+
     }
 
     public void OnEnableRotion(InputAction.CallbackContext context)

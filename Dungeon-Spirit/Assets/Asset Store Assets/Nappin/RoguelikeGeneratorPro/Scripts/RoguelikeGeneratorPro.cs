@@ -2191,10 +2191,10 @@ namespace RoguelikeGeneratorPro
 
         private void GenerateFloorCollider()
         {
-            BoxCollider levelFloorCollider = floorParent.AddComponent<BoxCollider>();
+            /*BoxCollider levelFloorCollider = floorParent.AddComponent<BoxCollider>();
 
             levelFloorCollider.center = new Vector3((int)levelSize.x / 2 * tileSize, 0f, (int)levelSize.y / 2 * tileSize);
-            levelFloorCollider.size = new Vector3(levelSize.x * tileSize, levelColliderHeight, levelSize.y * tileSize);
+            levelFloorCollider.size = new Vector3(levelSize.x * tileSize, levelColliderHeight, levelSize.y * tileSize);*/
         }
 
 

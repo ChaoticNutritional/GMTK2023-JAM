@@ -1,29 +1,40 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class AbilityBar : MonoBehaviour
 {
     [SerializeField] private AbilitySlot _abilitySlotPrefab;
 
-    [SerializeField] private int _abilityCount = 6;
+    public AbilitySlot[] _abilityArray = new AbilitySlot[6];
 
-    private AbilitySlot[] _abilityArray;
+    public CameraController _cameraController;
 
-    private void Awake()
+    protected GameObject myTile;
+
+    public void CreateBar(GameObject referencedTile)
     {
-        CreateBar();
-    }
+        Debug.Log("hello");
 
-    public void CreateBar()
-    {
-        // Preallocate slots array memory
-        _abilityArray = new AbilitySlot[_abilityCount];
-
-        for (int i = 0; i < +_abilityCount; i++) 
+        for(int i = 0; i < 6; i++)
         {
-            AbilitySlot thisAbilitySlot = Instantiate(_abilitySlotPrefab, transform);
-            _abilityArray[i] = thisAbilitySlot;
+            _abilityArray[i]._tile = referencedTile;
         }
     }
+
+
+    void OnDisable()
+    {
+        DestroyBar();
+    }
+
+    private void DestroyBar()
+    {
+        this.enabled = false;
+    }
 }
+
+// button for each ability
+// when clicked, spawn at referenced tile
