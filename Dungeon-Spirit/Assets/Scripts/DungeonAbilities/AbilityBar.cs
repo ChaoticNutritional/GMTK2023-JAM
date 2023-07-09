@@ -17,7 +17,6 @@ public class AbilityBar : MonoBehaviour
     public void CreateBar(GameObject referencedTile)
     {
         Debug.Log("hello");
-        _cameraController.CancelEvent += OnCancel;
 
         for(int i = 0; i < 6; i++)
         {
@@ -33,15 +32,7 @@ public class AbilityBar : MonoBehaviour
 
     private void DestroyBar()
     {
-        _cameraController.CancelEvent -= OnCancel;
         this.enabled = false;
-    }
-
-
-
-    private void OnCancel()
-    {
-        DestroyBar();
     }
 }
 

@@ -10,7 +10,7 @@ using UnityEditor.Events;
 public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
 {
     private IMouseable _mouseable = null;
-    [SerializeField] public CameraControls camControls {get; private set;}
+    [SerializeField] public CameraControls camControls { get; private set; }
     private InputAction movement;
     public Transform cameraTransform;
     public event Action CancelEvent;
@@ -74,7 +74,7 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
 
     public void SetTarget(GameObject target)
     {
-        if(target.CompareTag("GroundTile"))
+        if (target.CompareTag("GroundTile"))
         {
             tileTarget = target;
         }
@@ -104,16 +104,19 @@ public class CameraController : MonoBehaviour, CameraControls.IMyCamActions
 
     public void OnCancel(InputAction.CallbackContext context)
     {
-        if(DS_SceneManager.instance.inventoryHouse.gameObject.activeInHierarchy)
+        if (context.performed)
         {
-            DS_SceneManager.instance.inventoryHouse.GetComponent<InventoryHouseScript>().CloseMenu();
-            DS_SceneManager.instance.activeTile.GetComponent<TileInputHandler>().DisableSelection();
+            if (DS_SceneManager.instance.inventoryHouse.gameObject.activeInHierarchy)
+            {
+                DS_SceneManager.instance.inventoryHouse.GetComponent<InventoryHouseScript>().CloseMenu();
+                DS_SceneManager.instance.activeTile.GetComponent<TileInputHandler>().DisableSelection();
+            }
+            else
+            {
+                DS_SceneManager.instance.pauseScreenMenu.TogglePauseScreen();
+            }
         }
-        else
-        {
-            DS_SceneManager.instance.pauseScreenMenu.TogglePauseScreen();
-        }
-        if (!context.performed) { return; }
+
     }
 
     public void OnEnableRotion(InputAction.CallbackContext context)

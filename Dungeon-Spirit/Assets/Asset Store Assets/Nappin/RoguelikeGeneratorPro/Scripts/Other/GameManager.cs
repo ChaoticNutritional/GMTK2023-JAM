@@ -8,7 +8,7 @@ namespace RoguelikeGeneratorPro
     {
         [Header("Generate player")]
         public bool placePlayer = false;
-        public float playerHeightOffset = 1f;
+        public float playerHeightOffset = 0f;
         public GameObject playerObj;
 
         [Header("Generate target")]
@@ -64,17 +64,19 @@ namespace RoguelikeGeneratorPro
                 {
                     if (tiles[x, y] == tileType.floor)
                     {
-                        if(generation == genType.generateTile) GameObject.Instantiate(playerObj, new Vector3(x + tilesSize / 2, y + tilesSize / 2, playerHeightOffset) + mainLevelGenerator.transform.localPosition, Quaternion.identity);
+                        if (generation == genType.generateTile) GameObject.Instantiate(playerObj, new Vector3(x + tilesSize / 2, y + tilesSize / 2, playerHeightOffset) + mainLevelGenerator.transform.localPosition, Quaternion.identity);
                         else if (levelRot == levelRotation.XZ) GameObject.Instantiate(playerObj, new Vector3(x * tilesSize, playerHeightOffset, y * tilesSize) + mainLevelGenerator.transform.localPosition, Quaternion.identity);
                         else if (levelRot == levelRotation.XY) GameObject.Instantiate(playerObj, new Vector3(x * tilesSize, y * tilesSize, playerHeightOffset) + mainLevelGenerator.transform.localPosition, Quaternion.identity);
                         else GameObject.Instantiate(playerObj, new Vector3(playerHeightOffset, y * tilesSize, x * tilesSize) + mainLevelGenerator.transform.localPosition, Quaternion.identity);
+
 
                         goto EndLoop;
                     }
                 }
             }
-
+            
             EndLoop: Debug.Log("Player positioning loop ended");
+            playerObj.GetComponent<Unit>().gameManager = this.gameObject;
         }
 
 
@@ -95,8 +97,8 @@ namespace RoguelikeGeneratorPro
                     }
                 }
             }
-
-            EndLoop: Debug.Log("Target positioning loop ended");
+        EndLoop: Debug.Log("Target positioning loop ended");
+        playerObj.GetComponent<Unit>().target = targetObj.transform;
         }
     }
 }

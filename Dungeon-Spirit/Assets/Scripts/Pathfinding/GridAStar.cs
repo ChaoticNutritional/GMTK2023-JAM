@@ -11,14 +11,33 @@ public class GridAStar : MonoBehaviour
     GridNode[,] grid;
 
     float nodeDiameter;
-    int gridSizeX, gridSizeY;
+    public int gridSizeX, gridSizeY;
 
-    void Start()
+
+
+    void Awake()
+    {
+
+
+        Invoke("CreateGrid", .001f);
+    }
+
+    private void OnEnable()
     {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
         CreateGrid();
+
+        Debug.Log("Grid World Size: " + gridWorldSize);
+        Debug.Log("Node Diameter: " + nodeDiameter);
+        Debug.Log("Grid Size X: " + gridSizeX);
+        Debug.Log("Grid Size Y: " + gridSizeY);
+    }
+
+    void Start()
+    {
+
     }
 
     public int MaxSize
@@ -72,13 +91,29 @@ public class GridAStar : MonoBehaviour
 
     public GridNode NodeFromWorldPoint(Vector3 worldPosition)
     {
+        Debug.Log("WORLD POS: " + worldPosition);
         float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
         float percentY = (worldPosition.z + gridWorldSize.y / 2) / gridWorldSize.y;
+
+        Debug.Log("PercentX: " + percentX);
+        Debug.Log("PercentY: " + percentY);
+
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);
 
+        Debug.Log("PercentX POST CLAMP: " + percentX);
+        Debug.Log("PercentY POST CLAMP: " + percentY);
+
         int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
         int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
+        Debug.Log("X: " + x + ", Y: " + y);
+
+        if (x < 0 || x >= gridSizeX || y < 0 || y >= gridSizeY)
+        {
+            Debug.LogError("NodeFromWorldPoint: Invalid grid indices! X: " + x + ", Y: " + y);
+            return null;
+        }
+        Debug.Log(grid == null);
         return grid[x, y];
     }
 

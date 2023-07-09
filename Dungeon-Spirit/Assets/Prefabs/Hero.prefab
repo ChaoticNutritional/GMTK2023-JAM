@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 3105751845108268471}
   - component: {fileID: 3105751845108268464}
   - component: {fileID: 3105751845108268468}
+  - component: {fileID: -5966441905324622949}
+  - component: {fileID: -1504353131934031703}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -28,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3105751845108268465}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.16, y: 1, z: -0.42}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -106,7 +108,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3105751845108268465}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -121,3 +123,44 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-5966441905324622949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3105751845108268465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ae439f7cc0504d8e8557e0d616cfb51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  gameManager: {fileID: 0}
+--- !u!114 &-1504353131934031703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3105751845108268465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 538f35da1d679415ead4b5b333e44a36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHP: 40
+  _currentHP: 0
+  _armor: 0
+  _movement: 1
+  _baseDmg: 7
+  _bonusDmg: {x: 0, y: 3}
+  _healBonus: 0
+  _actionPoints: 4
+  _exp: 0
+  _currentLvl: 1
+  _expToLevel: 0
+  staticHealthOnLvl: 5
+  staticDmgOnLvl: 0.5
+  staticBonusDmgOnLvl: {x: 0, y: 1}
+  actionPointIncreaseOnLvl: 0
