@@ -5,11 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - UI
+  - Floor
+  - Coin
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Unwalkable
   - Water
   - UI
   - 

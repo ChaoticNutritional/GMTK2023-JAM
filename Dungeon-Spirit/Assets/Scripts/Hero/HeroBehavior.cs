@@ -1,40 +1,47 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HeroBehavior : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public float HP = 40f;
 
-    public float armor = 0f;
-
+    // BASE HERO VALUES
+    public float _maxHP = 40f;
+    public float _currentHP; // set to max on start
+    public float _armor = 0f;
     // how many squares cost one action point
-    public int movement = 1;
+    public float _movement = 1;
+    public float _baseDmg = 7f;
+    public Vector2 _bonusDmg = new Vector2(0f, 3f); // on turn set this to Range(0,3);
+    public float _healBonus = 0f;
+    public int _actionPoints = 4;
+    public float _exp = 0;
+    public int _currentLvl = 1;
+    public float _expToLevel;
 
-    public float baseDmg = 7f;
-
-    public Vector2 bonusDmg = new Vector2(0f, 3f); // on turn set this to Range(0,3);
-
-    public float healBonus = 0f;
-
-    public int actionPoints = 4;
-
-    public float exp = 0;
-
-    public int currentLvl = 1;
-
-    public float expToLevel;
-
+    // STATIC ON LEVEL UP VALUES
     public float staticHealthOnLvl = 5;
     public float staticDmgOnLvl = 0.5f;
     public Vector2 staticBonusDmgOnLvl = new Vector2(0f, 1f);
+    public int actionPointIncreaseOnLvl; // Math.Max( (1/3 * currentLvl), 6);
+
+    // DYNAMIC ON LVL UP VALUES
+
+    public enum DynamicLvlBonus
+    {
+        dynamicHealthOnLvl = 0,
+        dynamicArmorOnLvl = 1,
+        dynamicDmgBonusOnLvl = 2,
+        dynamicMoveBonusOnLvl = 3,
+        dynaimcBonusDmgOnLvl = 4,
+        dynamicHealBonusOnLvl = 5
+    }
+
 
 
     void Start()
     {
-
+        _currentHP = _maxHP;
     }
 
     // Update is called once per frame
@@ -46,23 +53,93 @@ public class HeroBehavior : MonoBehaviour
     public void OnGainXP(float expGained)
     {
         // when we gain XP,
-        exp += expGained;
-        if (exp >= currentLvl * 3)
+        _exp += expGained;
+        if (_exp >= _currentLvl * 3)
         {
-            currentLvl++;
+            _currentLvl++;
             LevelUp();
         }
     }
 
     private void LevelUp()
     {
-        
+        for (int i = 0; i < 4; i++)
+        {
+            switch (RollRandom())
+            {
+                case DynamicLvlBonus.dynamicHealthOnLvl:
+                    _maxHP += 10f;
+                    break;
+                case DynamicLvlBonus.dynamicArmorOnLvl:
+                    _armor += 0.5f;
+                    break;
+                case DynamicLvlBonus.dynamicDmgBonusOnLvl:
+                    _baseDmg += 0.5f;
+                    break;
+                case DynamicLvlBonus.dynamicMoveBonusOnLvl:
+                    _movement += 0.5f;
+                    break;
+                case DynamicLvlBonus.dynaimcBonusDmgOnLvl:
+                    _bonusDmg += new Vector2(0f, 2f);
+                    break;
+                case DynamicLvlBonus.dynamicHealBonusOnLvl:
+                    _healBonus += 5f;
+                    break;
+                default:
+                    break;
+            }
+
+        }
     }
 
     public void DoAttack() // pass in enemy target
     {
         // TODO
-        // 
+        // if we step in a space occupied by enemies
+        // if have action points
+        // attack til Hero Dies
+    }
 
+    public void DrinkFountain()
+    {
+        // TODO
+        // on enter
+        // if action point available && missing health
+        // spend action point to drink
+        // _health += (_maxHP * 5) + _healBonus
+    }
+
+    public void HandleDeath()
+    {
+        // play death anim
+        // destroy gameobject
+    }
+
+    public void TakeDmg(float dmgAmt)
+    {
+        _currentHP -= dmgAmt;
+
+        if(_currentHP <= 0)
+        {
+            HandleDeath();
+        }
+    }
+
+    public void OnKill() // pass in enemy target
+    {
+        // _exp += enemy.XPvalue
+        
+        // if (have more action points)
+        // keep moving
+    }
+
+    public void Move()
+    {
+        //A* hooboy
+    }
+
+    private DynamicLvlBonus RollRandom()
+    {
+        return (DynamicLvlBonus)Random.Range(0, 5);
     }
 }
