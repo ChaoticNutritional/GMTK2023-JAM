@@ -18,6 +18,7 @@ public class TileInputHandler : MonoBehaviour, IMouseable
     public GameObject[] spawnLocations = new GameObject[3];
     public GameObject slimePrefab;
     public GameObject ghoulPrefab;
+    public GameObject plainTilePrefab;
 
     private bool selected;
     public AbilityBar _abilityBar;
@@ -151,6 +152,13 @@ public class TileInputHandler : MonoBehaviour, IMouseable
             DisableSelection();
         myMat.color = originalColor;
         heroHasSteppedOn++;
+    }
+
+    public void FountainDrunk()
+    {
+        GameObject newFountain = Instantiate(plainTilePrefab, transform.parent.gameObject.transform.position, transform.transform.parent.gameObject.transform.rotation);
+        newFountain.GetComponent<TileInputHandler>().heroHasSteppedOn = heroHasSteppedOn;
+        Destroy(gameObject);
     }
 }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class HeroBehavior : MonoBehaviour
 {
     // Script Reference Variables
-    public DS_HeroMovement heroMove;
+    public DS_HeroMovement heroMoveScript;
     public Animator anim;
     private Vector3 originalPosition;
     public TileInputHandler tile;
@@ -16,6 +16,7 @@ public class HeroBehavior : MonoBehaviour
     public float _armor = 0f;
     // how many squares cost one action point
     public float _movement = 1;
+    public float _currentMovePoints;
     public float _baseDmg = 7f;
     public Vector2 _bonusDmg = new Vector2(0f, 3f); // on turn set this to Range(0,3);
     public float _healBonus = 0f;
@@ -49,7 +50,7 @@ public class HeroBehavior : MonoBehaviour
     {
         DS_SceneManager.instance.hero = this;
         anim = transform.GetChild(0).GetComponent<Animator>();
-        heroMove = GetComponent<DS_HeroMovement>();
+        heroMoveScript = GetComponent<DS_HeroMovement>();
         _currentHP = _maxHP;
     }
 
@@ -58,7 +59,18 @@ public class HeroBehavior : MonoBehaviour
     {
         if (DS_SceneManager.instance.spiritTurn == false && _currentAP != 0)
         {
-
+            if (tile.tileState == TileInputHandler.TileState.enemy)
+            {
+                DoAttack();
+            }
+            else if (tile.tileState == TileInputHandler.TileState.fountain && _currentHP < _maxHP)
+            {
+                DoDrinkFountain();
+            }
+            else if (_currentMovePoints >= 1)
+                Move();
+            else
+                DoMove();
         }
     }
 
@@ -111,19 +123,35 @@ public class HeroBehavior : MonoBehaviour
 
     public void DoAttack() // pass in enemy target
     {
+
+
         // TODO
         // if we step in a space occupied by enemies
         // if have action points
         // attack til Hero Dies
     }
 
-    public void DrinkFountain()
+    public void DoDrinkFountain()
     {
+        _currentHP += _maxHP * 0.5f;
+        _currentHP += _healBonus;
+        if (_currentHP > _maxHP)
+            _currentHP = _maxHP;
+
+        tile.FountainDrunk();
+
+        _currentAP--;
         // TODO
         // on enter
         // if action point available && missing health
         // spend action point to drink
         // _health += (_maxHP * 5) + _healBonus
+    }
+
+    public void DoMove()
+    {
+        _currentMovePoints += _movement;
+        _currentAP--;
     }
 
     public void HandleDeath()
@@ -153,23 +181,24 @@ public class HeroBehavior : MonoBehaviour
     public void Move()
     {
         //heroMove.CheckMovementDirection();
-        StartCoroutine("LerpToPosition", heroMove.CheckMovementDirection());
+        StartCoroutine("LerpToPosition", heroMoveScript.CheckMovementDirection());
         //A* hooboy
     }
 
-    public IEnumerable LerpToPosition(Vector3 dest)
+    public IEnumerable LerpToPosition(GameObject destObj)
     {
         float i = 0;
         originalPosition = transform.position;
-        transform.forward = new Vector3((dest - transform.position).x, 0, (dest - transform.position).z);
+        transform.forward = new Vector3((destObj.transform.position - transform.position).x, 0, (destObj.transform.position - transform.position).z);
         anim.Play("1H@Run01 - Forward");
         while (i < 1f)
         {
-            transform.position = Vector3.Lerp(originalPosition, dest, i);
+            transform.position = Vector3.Lerp(originalPosition, destObj.transform.position, i);
             yield return null;
         }
         anim.Play("Item-Idle");
-
+        tile = destObj.GetComponent<TileInputHandler>();
+        tile.heroHasSteppedOn++;
         yield break;
     }
 
