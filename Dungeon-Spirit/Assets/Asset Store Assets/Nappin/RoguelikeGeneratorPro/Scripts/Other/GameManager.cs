@@ -76,7 +76,6 @@ namespace RoguelikeGeneratorPro
             }
             
             EndLoop: Debug.Log("Player positioning loop ended");
-            playerObj.GetComponent<Unit>().gameManager = this.gameObject;
         }
 
 
@@ -98,7 +97,6 @@ namespace RoguelikeGeneratorPro
                 }
             }
         EndLoop: Debug.Log("Target positioning loop ended");
-        playerObj.GetComponent<Unit>().target = targetObj.transform;
         }
     }
 }

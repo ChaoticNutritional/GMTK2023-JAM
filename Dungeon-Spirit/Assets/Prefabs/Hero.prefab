@@ -2022,7 +2022,6 @@ GameObject:
   - component: {fileID: 3105751845108268471}
   - component: {fileID: 3105751845108268464}
   - component: {fileID: 3105751845108268468}
-  - component: {fileID: -5966441905324622949}
   - component: {fileID: -1504353131934031703}
   m_Layer: 0
   m_Name: Hero
@@ -2133,20 +2132,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-5966441905324622949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3105751845108268465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ae439f7cc0504d8e8557e0d616cfb51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 3686666587580725252, guid: ae7a5e44dbb048844a807d888a7751b8, type: 3}
-  gameManager: {fileID: 0}
 --- !u!114 &-1504353131934031703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2159,14 +2144,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538f35da1d679415ead4b5b333e44a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heroMoveScript: {fileID: 0}
+  anim: {fileID: 0}
+  tile: {fileID: 0}
   _maxHP: 40
   _currentHP: 0
   _armor: 0
   _movement: 1
+  _currentMovePoints: 0
   _baseDmg: 7
   _bonusDmg: {x: 0, y: 3}
   _healBonus: 0
   _actionPoints: 4
+  _currentAP: 0
   _exp: 0
   _currentLvl: 1
   _expToLevel: 0
