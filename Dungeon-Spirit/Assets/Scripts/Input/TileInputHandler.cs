@@ -24,6 +24,17 @@ public class TileInputHandler : MonoBehaviour, IMouseable
     private Color originalColor;
     private bool touched = false;
 
+    public enum TileState
+    {
+        floor = 0,
+        raised = 1,
+        pit = 2,
+        enemy = 3,
+        spike = 4,
+        fountain = 5,
+        exit = 6
+    }
+
     void Awake()
     {
         myMat = this.GetComponent<MeshRenderer>().material;
@@ -76,9 +87,9 @@ public class TileInputHandler : MonoBehaviour, IMouseable
         if(DS_SceneManager.instance.activeTile != null)
         {
             DS_SceneManager.instance.activeTile.GetComponent<TileInputHandler>().DisableSelection();
-            DS_SceneManager.instance.activeTile = this;
-            myMat.color = Color.cyan;
         }
+        DS_SceneManager.instance.activeTile = this;
+        myMat.color = Color.cyan;
     }
 
     public void DisableSelection()

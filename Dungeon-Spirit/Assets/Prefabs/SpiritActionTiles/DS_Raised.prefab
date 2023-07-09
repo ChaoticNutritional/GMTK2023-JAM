@@ -458,7 +458,7 @@ BoxCollider:
   m_GameObject: {fileID: 1998177572758445750}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.5, y: 2, z: 1.5}
   m_Center: {x: 0, y: 1, z: 0}
@@ -894,6 +894,7 @@ GameObject:
   - component: {fileID: 6722143768050672583}
   - component: {fileID: 6722143768051768009}
   - component: {fileID: 6747400562049839645}
+  - component: {fileID: 9055324574432729424}
   m_Layer: 0
   m_Name: SM_Env_Tiles_01
   m_TagString: Untagged
@@ -979,6 +980,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.000002, y: 0.09791671, z: 4.999999}
   m_Center: {x: -2.500001, y: 0.045907862, z: 2.4999995}
+--- !u!114 &9055324574432729424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6722143768053933983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bfce750163f241608c136bfacc75d38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _abilityBar: {fileID: 0}
 --- !u!1 &7973723291466051328
 GameObject:
   m_ObjectHideFlags: 0
