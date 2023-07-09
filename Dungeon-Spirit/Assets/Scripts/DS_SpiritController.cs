@@ -8,6 +8,9 @@ public class DS_SpiritController : MonoBehaviour
     public GameObject[] prefabs = new GameObject[6];
 
     public int AP;
+    public int APGain = 4;
+
+    public bool skipTurn;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +22,21 @@ public class DS_SpiritController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(skipTurn)
+        {
+            StartOfTurn();
+            skipTurn = false;
+        }
+    }
+
+    public void StartOfTurn()
+    {
+        AP += APGain;
+        if (AP > APGain * 1.5)
+        {
+            AP = (int)(APGain * 1.5);
+            print(AP);
+        }
     }
 
     public void RaiseTile()

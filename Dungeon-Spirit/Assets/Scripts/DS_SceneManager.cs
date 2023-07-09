@@ -13,7 +13,8 @@ public class DS_SceneManager : MonoBehaviour
     public PauseScreenMenu pauseScreenMenu;
     public DS_SpiritController spiritController;
 
-
+    public bool spiritTurn;
+    public int turnNumber;
 
     private void Awake()
     {
@@ -30,5 +31,19 @@ public class DS_SceneManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void AdvanceRound()
+    {
+        if (spiritTurn == true)
+        {
+            spiritTurn = false;
+            // Hero spends actions
+        }
+
+        else
+        {
+            turnNumber++;
+        }
     }
 }
