@@ -72,17 +72,19 @@ public class TileInputHandler : MonoBehaviour, IMouseable
 
     public void EnableSelection()
     {
+        //print("selectionEnabled " + gameObject.name);
         selected = true;
         if(DS_SceneManager.instance.activeTile != null)
         {
             DS_SceneManager.instance.activeTile.GetComponent<TileInputHandler>().DisableSelection();
-            DS_SceneManager.instance.activeTile = this;
-            myMat.color = Color.cyan;
         }
+        DS_SceneManager.instance.activeTile = this;
+        myMat.color = Color.cyan;
     }
 
     public void DisableSelection()
     {
+        //print("SelectionDisabled " + gameObject.name);
         selected = false;
         DS_SceneManager.instance.activeTile = null;
         myMat.color = originalColor;
