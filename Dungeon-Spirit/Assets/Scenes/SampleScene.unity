@@ -761,6 +761,26 @@ PrefabInstance:
       propertyPath: m_text
       value: Quit to Desktop
       objectReference: {fileID: 0}
+    - target: {fileID: 8370586193362649508, guid: a8b107be679d97f4694a68407ad5f863, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370586193362649508, guid: a8b107be679d97f4694a68407ad5f863, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8402819344170297156, guid: a8b107be679d97f4694a68407ad5f863, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8402819344170297156, guid: a8b107be679d97f4694a68407ad5f863, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8402819344170297156, guid: a8b107be679d97f4694a68407ad5f863, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8b107be679d97f4694a68407ad5f863, type: 3}
 --- !u!1001 &7412047908665425285

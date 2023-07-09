@@ -44,7 +44,9 @@ public class TileInputHandler : MonoBehaviour, IMouseable
         // show ability bar
         // show abilities
 
-        // call out to scene manager
+        // call out to scene manager with reference to self
+
+        // have scene manager to subscribe 
         _abilityBar.enabled = true;
 
         _abilityBar.CreateBar(this.gameObject);
