@@ -11,10 +11,16 @@ public class PauseScreenMenu : MonoBehaviour {
     {   
         if (pauseScreenMenu == null)
             pauseScreenMenu = gameObject;
+        
+    }
+
+
+    private void Start()
+    {
+        DS_SceneManager.instance.pauseScreenMenu = this;
         TogglePauseScreen();
     }
 
- 
     public void TogglePauseScreen()
     {
         pauseScreenMenu.SetActive(!pauseScreenMenu.activeInHierarchy);

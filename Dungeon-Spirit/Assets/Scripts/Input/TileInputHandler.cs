@@ -10,15 +10,16 @@ public class TileInputHandler : MonoBehaviour, IMouseable
 
     // reference the camera controller to check if isSelected is true;
 
-        // Start is called before the first frame update
+    // Start is called before the first frame update
 
     // reference the camera controller to check if isSelected is true;
 
-    
 
-    // HOVER MATERIA
+
+    private bool selected;
     public AbilityBar _abilityBar;
 
+    // HOVER MATERIAL
     private Material myMat;
     private Color originalColor;
     private bool touched = false;
@@ -27,16 +28,23 @@ public class TileInputHandler : MonoBehaviour, IMouseable
     {
         myMat = this.GetComponent<MeshRenderer>().material;
         originalColor = myMat.color;
+        selected = false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        myMat.color = Color.green;
+        if (selected == false)
+        {
+            myMat.color = Color.green;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        myMat.color = originalColor;
+        if (selected == false)
+        {
+            myMat.color = originalColor;
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -47,12 +55,38 @@ public class TileInputHandler : MonoBehaviour, IMouseable
         // call out to scene manager with reference to self
 
         // have scene manager to subscribe 
-        _abilityBar.enabled = true;
+        //_abilityBar.enabled = true;
 
-        _abilityBar.CreateBar(this.gameObject);
+        //_abilityBar.CreateBar(this.gameObject);
+
+        if(selected)
+        {
+            DisableSelection();
+            myMat.color = Color.green;
+        }
+        else
+        {
+            EnableSelection();
+        }
     }
 
+    public void EnableSelection()
+    {
+        selected = true;
+        if(DS_SceneManager.instance.activeTile != null)
+        {
+            DS_SceneManager.instance.activeTile.GetComponent<TileInputHandler>().DisableSelection();
+            DS_SceneManager.instance.activeTile = this;
+            myMat.color = Color.cyan;
+        }
+    }
 
+    public void DisableSelection()
+    {
+        selected = false;
+        DS_SceneManager.instance.activeTile = null;
+        myMat.color = originalColor;
+    }
 }
 
 
