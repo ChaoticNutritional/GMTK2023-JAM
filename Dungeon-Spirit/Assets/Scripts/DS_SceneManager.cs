@@ -15,6 +15,8 @@ public class DS_SceneManager : MonoBehaviour
 
     public bool spiritTurn;
     public int turnNumber;
+    public bool heroPassTurn;
+    public bool spiritPassTurn;
 
     private void Awake()
     {
@@ -44,6 +46,8 @@ public class DS_SceneManager : MonoBehaviour
         else
         {
             turnNumber++;
+            spiritTurn = true;
+            spiritController.StartOfTurn();
         }
     }
 }

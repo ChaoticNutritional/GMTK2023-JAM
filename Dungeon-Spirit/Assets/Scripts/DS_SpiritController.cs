@@ -12,11 +12,20 @@ public class DS_SpiritController : MonoBehaviour
 
     public bool skipTurn;
 
+    public GameObject flowController;
+    private CrusaderUI.Scripts.HPFlowController hPFlow;
+
     // Start is called before the first frame update
     void Start()
     {
+        if(flowController != null)
+        {
+            hPFlow = flowController.GetComponent<CrusaderUI.Scripts.HPFlowController>();
+        }
         DS_SceneManager.instance.spiritController = this;
-        AP = 20;
+        AP = 4;
+        SetAPDisplay();
+        print(AP);
     }
 
     // Update is called once per frame
@@ -34,9 +43,19 @@ public class DS_SpiritController : MonoBehaviour
         AP += APGain;
         if (AP > APGain * 1.5)
         {
-            AP = (int)(APGain * 1.5);
-            print(AP);
+            int APMax = (int)(APGain * 1.5);
+            AP = APMax;
+            
         }
+        SetAPDisplay();
+        print(AP);
+    }
+
+    public void SetAPDisplay()
+    {
+        int APMax = (int)(APGain * 1.5);
+        print(((float)AP / APMax));
+        hPFlow.SetValue((float)AP / APMax);
     }
 
     public void RaiseTile()
@@ -51,6 +70,7 @@ public class DS_SpiritController : MonoBehaviour
                 TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
                 newTile.ReplaceSelection();
                 AP--;
+                SetAPDisplay();
                 Debug.Log("Raise active tile");
             }
             else if (tile.tileState == TileInputHandler.TileState.floor)
@@ -59,6 +79,7 @@ public class DS_SpiritController : MonoBehaviour
                 TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
                 newTile.ReplaceSelection();
                 AP--;
+                SetAPDisplay();
                 Debug.Log("Raise active tile");
             }
             // If the tile is lowered, raise it to level. If level, set to raised. If raised, do nothing.
@@ -77,6 +98,7 @@ public class DS_SpiritController : MonoBehaviour
                 TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
                 newTile.ReplaceSelection();
                 AP--;
+                SetAPDisplay();
                 Debug.Log("Lower active tile");
             }
             else if (tile.tileState == TileInputHandler.TileState.raised)
@@ -85,6 +107,7 @@ public class DS_SpiritController : MonoBehaviour
                 TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
                 newTile.ReplaceSelection();
                 AP--;
+                SetAPDisplay();
                 Debug.Log("Lower active tile");
             }
         }
@@ -102,6 +125,7 @@ public class DS_SpiritController : MonoBehaviour
                 newTile.ReplaceSelection();
                 newTile.AddSlime();
                 AP--;
+                SetAPDisplay();
                 Debug.Log("Spawn Slime");
             }
             else if (tile.tileState == TileInputHandler.TileState.enemy)
@@ -110,6 +134,7 @@ public class DS_SpiritController : MonoBehaviour
                 {
                     tile.AddSlime();
                     AP--;
+                    SetAPDisplay();
                     Debug.Log("Spawn Slime");
                 }
             }
@@ -130,6 +155,7 @@ public class DS_SpiritController : MonoBehaviour
                 newTile.ReplaceSelection();
                 newTile.AddGhoul();
                 AP -= 3;
+                SetAPDisplay();
                 Debug.Log("Spawn Ghoul");
             }
             else if (tile.tileState == TileInputHandler.TileState.enemy)
@@ -138,6 +164,7 @@ public class DS_SpiritController : MonoBehaviour
                 {
                     tile.AddGhoul();
                     AP -= 3;
+                    SetAPDisplay();
                     Debug.Log("Spawn Ghoul");
                 }
             }
@@ -155,6 +182,7 @@ public class DS_SpiritController : MonoBehaviour
             TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
             newTile.ReplaceSelection();
             AP -= 2;
+            SetAPDisplay();
         }
         else if (tile.tileState == TileInputHandler.TileState.pit && AP >= 1)
         {
@@ -162,6 +190,7 @@ public class DS_SpiritController : MonoBehaviour
             TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
             newTile.ReplaceSelection();
             AP--;
+            SetAPDisplay();
         }
     }
 
@@ -174,6 +203,7 @@ public class DS_SpiritController : MonoBehaviour
             TileInputHandler newTile = newTileGO.GetComponentInChildren<TileInputHandler>();
             newTile.ReplaceSelection();
             AP -= 2;
+            SetAPDisplay();
         }
     }
 }
