@@ -9,6 +9,8 @@ public class HeroBehavior : MonoBehaviour
     public Animator anim;
     private Vector3 originalPosition;
     public TileInputHandler tile;
+    bool heroActionBlock = false;
+    bool insufficientMovePoints = false;
 
     // BASE HERO VALUES
     public float _maxHP = 40f;
@@ -40,7 +42,7 @@ public class HeroBehavior : MonoBehaviour
         dynamicArmorOnLvl = 1,
         dynamicDmgBonusOnLvl = 2,
         dynamicMoveBonusOnLvl = 3,
-        dynaimcBonusDmgOnLvl = 4,
+        dynamicBonusDmgOnLvl = 4,
         dynamicHealBonusOnLvl = 5
     }
 
@@ -52,12 +54,14 @@ public class HeroBehavior : MonoBehaviour
         anim = transform.GetChild(0).GetComponent<Animator>();
         heroMoveScript = GetComponent<DS_HeroMovement>();
         _currentHP = _maxHP;
+
+        // TODO_ Raycast down and get home tile at start!!
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (DS_SceneManager.instance.spiritTurn == false && _currentAP != 0)
+        if (DS_SceneManager.instance.spiritTurn == false && _currentAP != 0 && heroActionBlock == false)
         {
             if (tile.tileState == TileInputHandler.TileState.enemy)
             {
@@ -67,7 +71,7 @@ public class HeroBehavior : MonoBehaviour
             {
                 DoDrinkFountain();
             }
-            else if (_currentMovePoints >= 1)
+            else if (_currentMovePoints >= 1 && !insufficientMovePoints)
                 Move();
             else
                 DoMove();
@@ -108,7 +112,7 @@ public class HeroBehavior : MonoBehaviour
                 case DynamicLvlBonus.dynamicMoveBonusOnLvl:
                     _movement += 0.5f;
                     break;
-                case DynamicLvlBonus.dynaimcBonusDmgOnLvl:
+                case DynamicLvlBonus.dynamicBonusDmgOnLvl:
                     _bonusDmg += new Vector2(0f, 2f);
                     break;
                 case DynamicLvlBonus.dynamicHealBonusOnLvl:
@@ -137,7 +141,6 @@ public class HeroBehavior : MonoBehaviour
         _currentHP += _healBonus;
         if (_currentHP > _maxHP)
             _currentHP = _maxHP;
-
         tile.FountainDrunk();
 
         _currentAP--;
@@ -181,12 +184,26 @@ public class HeroBehavior : MonoBehaviour
     public void Move()
     {
         //heroMove.CheckMovementDirection();
-        StartCoroutine("LerpToPosition", heroMoveScript.CheckMovementDirection());
+        TileInputHandler destTile = heroMoveScript.CheckMovementDirection();
+        if(((tile.tileState == TileInputHandler.TileState.pit) || tile.tileState == TileInputHandler.TileState.spike)
+            && ((destTile.tileState != TileInputHandler.TileState.pit) || destTile.tileState == TileInputHandler.TileState.spike))
+        {
+            StartCoroutine("LerpToPosition", destTile);
+        }
+        else if ((tile.tileState == TileInputHandler.TileState.pit || tile.tileState == TileInputHandler.TileState.spike))
+        {
+            if (_currentMovePoints < 2)
+                insufficientMovePoints = true;
+        }
+        else StartCoroutine("LerpToPosition", destTile);
+
+
         //A* hooboy
     }
 
     public IEnumerable LerpToPosition(GameObject destObj)
     {
+        heroActionBlock = true;
         float i = 0;
         originalPosition = transform.position;
         transform.forward = new Vector3((destObj.transform.position - transform.position).x, 0, (destObj.transform.position - transform.position).z);
@@ -194,11 +211,27 @@ public class HeroBehavior : MonoBehaviour
         while (i < 1f)
         {
             transform.position = Vector3.Lerp(originalPosition, destObj.transform.position, i);
+            i += Time.deltaTime;
             yield return null;
         }
         anim.Play("Item-Idle");
         tile = destObj.GetComponent<TileInputHandler>();
         tile.heroHasSteppedOn++;
+        heroActionBlock = false;
+        yield break;
+    }
+
+    public IEnumerable DisplayFountainDrinkAnim()
+    {
+        heroActionBlock = true;
+        anim.Play("Item-Drink");
+        float timer = 0f;
+        while(timer < 1.333f)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        heroActionBlock = false;
         yield break;
     }
 

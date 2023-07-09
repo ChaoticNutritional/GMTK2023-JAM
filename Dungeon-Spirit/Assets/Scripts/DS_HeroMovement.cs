@@ -20,7 +20,7 @@ public class DS_HeroMovement : MonoBehaviour
         
     //}
 
-    public Vector3 CheckMovementDirection()
+    public TileInputHandler CheckMovementDirection()
     {
         for(int i = 0; i < testerObjects.Length; i++)
         {
@@ -56,6 +56,6 @@ public class DS_HeroMovement : MonoBehaviour
         }
 
 
-        return Vector3.zero;
+        return DS_SceneManager.instance.activeTile;
     }
 }
