@@ -7,7 +7,6 @@ public class Unit : MonoBehaviour
 
 
     public Transform target;
-    public GameObject gameManager;
     float speed = 8f;
     Vector3[] path;
     int targetIndex;
@@ -20,7 +19,6 @@ public class Unit : MonoBehaviour
     IEnumerator LateStart()
     {
         yield return new WaitForSeconds(.7f);
-        target = gameManager.GetComponent<GameManager>().targetObj.transform;
         PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
         //Your Function You Want to Call
     }

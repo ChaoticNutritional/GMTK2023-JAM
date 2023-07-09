@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DS_SpiritController : MonoBehaviour
 {
-    [Tooltip ("Contains prefabs to instantiate. Floor, Raised, Pit, Enemy, Spike, Fountain")]
+    [Tooltip("Contains prefabs to instantiate. Floor, Raised, Pit, Enemy, Spike, Fountain")]
     public GameObject[] prefabs = new GameObject[6];
 
     public int AP;
@@ -12,16 +12,16 @@ public class DS_SpiritController : MonoBehaviour
 
     public bool skipTurn;
 
-    public GameObject flowController;
-    private CrusaderUI.Scripts.HPFlowController hPFlow;
+    public CrusaderUI.Scripts.HPFlowController hPFlow;
 
     // Start is called before the first frame update
+    void Awake()
+    {
+
+    }
+
     void Start()
     {
-        if(flowController != null)
-        {
-            hPFlow = flowController.GetComponent<CrusaderUI.Scripts.HPFlowController>();
-        }
         DS_SceneManager.instance.spiritController = this;
         AP = 4;
         SetAPDisplay();
@@ -31,7 +31,7 @@ public class DS_SpiritController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(skipTurn)
+        if (skipTurn)
         {
             StartOfTurn();
             skipTurn = false;
@@ -45,7 +45,7 @@ public class DS_SpiritController : MonoBehaviour
         {
             int APMax = (int)(APGain * 1.5);
             AP = APMax;
-            
+
         }
         SetAPDisplay();
         print(AP);
@@ -55,7 +55,12 @@ public class DS_SpiritController : MonoBehaviour
     {
         int APMax = (int)(APGain * 1.5);
         print(((float)AP / APMax));
-        hPFlow.SetValue((float)AP / APMax);
+        Debug.LogFormat("AP: " + AP);
+        Debug.LogFormat("APMAX: " + APMax);
+        Debug.Log("Is HPFlow null?: " + hPFlow == null);
+
+        //hPFlow.SetValue(AP / APMax);
+        hPFlow.SetValue(15f);
     }
 
     public void RaiseTile()
@@ -130,7 +135,7 @@ public class DS_SpiritController : MonoBehaviour
             }
             else if (tile.tileState == TileInputHandler.TileState.enemy)
             {
-                if(tile.numberOfEnemies < 3)
+                if (tile.numberOfEnemies < 3)
                 {
                     tile.AddSlime();
                     AP--;
