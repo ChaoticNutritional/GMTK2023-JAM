@@ -28,9 +28,6 @@ public class DS_SceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (activeTile != null && inventoryHouse.gameObject.activeInHierarchy == false)
-            inventoryHouse.OpenMenu();
-        else if (activeTile == null && inventoryHouse.gameObject.activeInHierarchy)
-            inventoryHouse.CloseMenu();
+        
     }
 }
