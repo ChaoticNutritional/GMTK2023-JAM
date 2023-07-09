@@ -24,6 +24,7 @@ public class TileInputHandler : MonoBehaviour, IMouseable
     public TileState tileState;
     public bool heroHasSteppedOn;
     public int numberOfEnemies;
+    public List<GameObject> enemies = new List<GameObject>();
 
     // HOVER MATERIAL
     private Material myMat;
@@ -46,6 +47,7 @@ public class TileInputHandler : MonoBehaviour, IMouseable
         myMat = this.GetComponent<MeshRenderer>().material;
         originalColor = myMat.color;
         selected = false;
+        numberOfEnemies = 0;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -127,9 +129,13 @@ public class TileInputHandler : MonoBehaviour, IMouseable
 
     public void AddGhoul()
     {
+        print("AddGhoulCalled");
         if (tileState == TileState.enemy && numberOfEnemies < 3)
         {
-            Instantiate(ghoulPrefab, spawnLocations[numberOfEnemies].transform.position, spawnLocations[numberOfEnemies].transform.rotation);
+            print("Adding Ghoul");
+            GameObject ghoul = Instantiate(ghoulPrefab, spawnLocations[numberOfEnemies].transform.position, spawnLocations[numberOfEnemies].transform.rotation);
+            enemies.Add(ghoul);
+            print("Ghoul Added " + ghoul.name);
             numberOfEnemies++;
         }
     }

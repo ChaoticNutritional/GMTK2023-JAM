@@ -119,9 +119,9 @@ public class DS_SpiritController : MonoBehaviour
             {
                 if (tile.numberOfEnemies < 3)
                 {
-                    tile.AddSlime();
+                    tile.AddGhoul();
                     AP -= 3;
-                    Debug.Log("Spawn Slime");
+                    Debug.Log("Spawn Ghoul");
                 }
             }
             // if the tile is level and contains 0 monsters, make it a Monster tile and add a Slime. If it does

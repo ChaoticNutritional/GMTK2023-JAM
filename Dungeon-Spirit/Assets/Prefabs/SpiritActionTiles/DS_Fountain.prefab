@@ -5123,9 +5123,10 @@ MonoBehaviour:
   slimePrefab: {fileID: 0}
   ghoulPrefab: {fileID: 0}
   _abilityBar: {fileID: 0}
-  tileState: 0
+  tileState: 5
   heroHasSteppedOn: 0
   numberOfEnemies: 0
+  enemies: []
 --- !u!1 &4077784386626095065
 GameObject:
   m_ObjectHideFlags: 0
