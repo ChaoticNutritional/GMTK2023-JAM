@@ -110,8 +110,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bfce750163f241608c136bfacc75d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnLocations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  slimePrefab: {fileID: 0}
+  ghoulPrefab: {fileID: 0}
+  plainTilePrefab: {fileID: 0}
   _abilityBar: {fileID: 0}
   tileState: 2
+  heroHasSteppedOn: 0
+  numberOfEnemies: 0
+  enemies: []
 --- !u!1 &6692935539540235200
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 6692935539540235200}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.64, y: 0.64, z: 0.64}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4072054743451782574}
