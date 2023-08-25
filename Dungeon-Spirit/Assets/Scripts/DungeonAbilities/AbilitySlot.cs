@@ -1,23 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.EventSystems;
-using UnityEngine;
-
-public class AbilitySlot : MonoBehaviour
-{
-    public GameObject _tile;
-    public BaseAbility _ability;
-
-    public AbilitySlot(GameObject tile, BaseAbility ability)
-    {
-        _tile = tile;
-        _ability = ability;
-    }
-
-    public void Spawn(GameObject _tile)
-    {
-        _ability.Spawn(_tile);
-    }
-}
-
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:5d83b20df29cfb118e5d2055868c343745168a477831b87a4f6ab01bf1d3ac1a
+size 429

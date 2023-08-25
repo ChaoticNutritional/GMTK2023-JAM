@@ -1,25 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-
-public class VictoryMenu : MonoBehaviour
-{   
-    public void PlayAgain()
-    {
-        SceneManager.LoadScene(1);
-    }
-
-    public void QuitToMainMenu()
-    {
-        SceneManager.LoadScene(0);
-    }
-
-    public void QuitToDesktop()
-    {
-        Application.Quit();
-
-    }
-
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:62e6844827aee6088e9ced48cb3997bbcd16bdb1f8c055101aad8dadfe062a43
+size 416
